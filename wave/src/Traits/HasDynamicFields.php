@@ -8,10 +8,7 @@ trait HasDynamicFields
 {
     private function dynamicFields($fields){
         $dynamicFields = [];
-        foreach($fields as $field){
-
-            $key = Str::slug($field['label']);
-
+        foreach($fields as $key => $field){
             if(!class_exists($field['type'])){
                 $fieldType = '\Filament\Forms\Components\\' . $field['type'];
             } else {
@@ -58,9 +55,7 @@ trait HasDynamicFields
 
     private function saveDynamicFields($fields){
         $state = $this->form->getState();
-        foreach($fields as $field){
-            $key = Str::slug($field['label']);
-
+        foreach($fields as $key => $field){
             if(isset($state[$key])){
                 $value = $state[$key];
                 if (is_array($state[$key])) {
